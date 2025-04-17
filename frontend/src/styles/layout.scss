@@ -10,7 +10,9 @@
     margin-left: 250px;
     margin-top: 64px;
     padding: 1.5rem;
-    transition: margin-left var(--transition-speed);
+    transition: margin-left var(--transition-speed), background-color var(--transition-speed);
+    overflow-y: auto;
+    background-color: var(--bg-primary);
 
     @media (max-width: 768px) {
       margin-left: 0;

@@ -4,8 +4,17 @@ html, body, #root {
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f9fafb; /* Light neutral background */
-  color: #1f2937; /* Dark gray text */
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+/* Apply theme transition to all elements */
+* {
+  transition: background-color var(--transition-speed), 
+              color var(--transition-speed), 
+              border-color var(--transition-speed),
+              box-shadow var(--transition-speed);
 }
 
 /* Layout containers */
@@ -13,18 +22,19 @@ html, body, #root {
   display: flex;
   height: 100%;
   width: 100%;
+  background-color: var(--bg-primary);
 }
 
 /* Sidebar Styling */
 .sidebar {
   width: 250px;
-  background-color: #1e293b; /* Dark blue-gray */
-  color: #ffffff;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
   padding: 1rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+  box-shadow: var(--shadow);
 }
 
 /* Main content */
@@ -32,17 +42,17 @@ html, body, #root {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
-  background-color: #f1f5f9; /* Light grayish-blue */
+  overflow: auto;
+  background-color: var(--bg-primary);
 }
 
 /* Navbar */
 .navbar {
-  background-color: #ffffff;
+  background-color: var(--navbar-bg);
   padding: 1rem 1.5rem;
-  border-bottom: 1px solid #e2e8f0; /* Soft gray border */
+  border-bottom: 1px solid var(--border-color);
   font-weight: bold;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  box-shadow: var(--shadow);
 }
 
 /* Dashboard grid area */
@@ -52,6 +62,7 @@ html, body, #root {
   gap: 1.5rem;
   padding: 1.5rem;
   overflow-y: auto;
+  background-color: var(--bg-primary);
 }
 
 /* Left and right dashboard columns */
@@ -67,4 +78,39 @@ html, body, #root {
 
 .app__grid__2 {
   flex: 1;
+}
+
+/* Cards and UI elements */
+.card {
+  background-color: var(--card-bg);
+  border-radius: 0.5rem;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+  color: var(--text-primary);
+}
+
+/* Form elements */
+input, select, textarea, button {
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+/* Tables */
+table {
+  border-color: var(--border-color);
+}
+
+th, td {
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+
+thead {
+  background-color: var(--card-bg);
+}
+
+tbody tr:hover {
+  background-color: var(--hover-bg);
 }

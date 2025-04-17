@@ -1,0 +1,75 @@
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f3f4f6;
+  --card-bg: #ffffff;
+  --text-primary: #1f2937;
+  --text-secondary: #4b5563;
+  --text-tertiary: #9ca3af;
+  --input-bg: #f9fafb;
+  --accent-color: #3b82f6;
+  --accent-rgb: 59, 130, 246;
+  --accent-hover: #2563eb;
+  --hover-bg: #f3f4f6;
+  --border-color: #e5e7eb;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --transition-speed: 0.2s;
+  --navbar-bg: #ffffff;
+}
+
+/* Dark mode styles */
+[data-theme='dark'] {
+  --bg-primary: #111827;
+  --bg-secondary: #1a202c;
+  --card-bg: #1f2937;
+  --text-primary: #f9fafb;
+  --text-secondary: #e5e7eb;
+  --text-tertiary: #9ca3af;
+  --input-bg: #374151;
+  --accent-hover: #2563eb;
+  --hover-bg: #374151;
+  --border-color: #4b5563;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+  --navbar-bg: #1f2937;
+}
+
+/* Apply theme transition to all elements */
+* {
+  transition: background-color var(--transition-speed), 
+              color var(--transition-speed), 
+              border-color var(--transition-speed),
+              box-shadow var(--transition-speed);
+}
+
+/* Basic elements styling */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Default styling for common elements */
+input, select, textarea, button {
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.card, .panel, .box {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow);
+}
+
+table {
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+th, td {
+  border-color: var(--border-color);
+}
+
+/* Links styling */
+a {
+  color: var(--accent-color);
+} 

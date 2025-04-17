@@ -30,15 +30,9 @@ const Login = () => {
       }
       const token=data.token;
       localStorage.setItem('token',token)
-      const user=jwtDecode(localStorage.getItem('token'))
-      if(user.role==='Admin'){
-        navigate("/admin");
-      }
-      else if(user.role==="Manager")
-      {navigate("/user-manager");}
-      else{
-        navigate('/employees')
-      }
+      
+      // Redirect all users to dashboard regardless of role
+      navigate('/dashboard');
     } catch (error) {
       console.error("Error logging in:", error);
       setError("Network error. Please check your connection and try again.");

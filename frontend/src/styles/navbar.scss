@@ -1,5 +1,6 @@
 :root {
   --bg-primary: #ffffff;
+  --bg-secondary: #f3f4f6;
   --card-bg: #ffffff;
   --text-primary: #1f2937;
   --text-secondary: #4b5563;
@@ -11,6 +12,22 @@
   --border-color: #e5e7eb;
   --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   --transition-speed: 0.2s;
+  --navbar-bg: #ffffff;
+}
+
+/* Dark mode styles */
+[data-theme='dark'] {
+  --bg-primary: #111827;
+  --bg-secondary: #1a202c;
+  --card-bg: #1f2937;
+  --text-primary: #f9fafb;
+  --text-secondary: #e5e7eb;
+  --text-tertiary: #9ca3af;
+  --input-bg: #374151;
+  --hover-bg: #374151;
+  --border-color: #4b5563;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+  --navbar-bg: #1f2937;
 }
 
 .navbar {
@@ -18,13 +35,14 @@
   align-items: center;
   justify-content: space-between;
   padding: 1rem 2rem;
-  background-color: #ffffff;
+  background-color: var(--navbar-bg);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1000;
+  transition: background-color var(--transition-speed);
 
   .navbar-brand {
     display: flex;
@@ -36,8 +54,9 @@
       border: none;
       font-size: 1.5rem;
       cursor: pointer;
-      color: #333;
+      color: var(--text-primary);
       display: none;
+      transition: color var(--transition-speed);
 
       @media (max-width: 768px) {
         display: block;
@@ -46,9 +65,10 @@
 
     .logo {
       text-decoration: none;
-      color: #333;
+      color: var(--text-primary);
       font-size: 1.5rem;
       font-weight: bold;
+      transition: color var(--transition-speed);
     }
   }
 
@@ -62,13 +82,16 @@
       width: 100%;
       padding: 0.5rem 1rem;
       padding-right: 2.5rem;
-      border: 1px solid #ddd;
+      border: 1px solid var(--border-color);
       border-radius: 4px;
       font-size: 0.9rem;
+      background-color: var(--input-bg);
+      color: var(--text-primary);
+      transition: all var(--transition-speed);
 
       &:focus {
         outline: none;
-        border-color: #007bff;
+        border-color: var(--accent-color);
       }
     }
 
@@ -79,8 +102,9 @@
       transform: translateY(-50%);
       background: none;
       border: none;
-      color: #666;
+      color: var(--text-secondary);
       cursor: pointer;
+      transition: color var(--transition-speed);
     }
   }
 
@@ -96,10 +120,11 @@
         background: none;
         border: none;
         font-size: 1.2rem;
-        color: #333;
+        color: var(--text-primary);
         cursor: pointer;
         padding: 0.5rem;
         position: relative;
+        transition: color var(--transition-speed);
 
         .badge {
           position: absolute;
@@ -110,6 +135,19 @@
           background-color: #ff4444;
           border-radius: 50%;
         }
+      }
+    }
+
+    .theme-toggle-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      transition: background-color var(--transition-speed), color var(--transition-speed);
+
+      &:hover {
+        background-color: var(--hover-bg);
+        color: var(--accent-color);
       }
     }
 
@@ -135,6 +173,8 @@
             margin: 0;
             font-size: 0.9rem;
             font-weight: 600;
+            color: var(--text-primary);
+            transition: color var(--transition-speed);
           }
 
           .user-status {
@@ -148,11 +188,12 @@
         position: absolute;
         top: 100%;
         right: 0;
-        background-color: #fff;
+        background-color: var(--card-bg);
         border-radius: 4px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--shadow);
         min-width: 200px;
         display: none;
+        transition: background-color var(--transition-speed), box-shadow var(--transition-speed);
 
         &.show {
           display: block;
@@ -164,16 +205,16 @@
           gap: 0.5rem;
           padding: 0.75rem 1rem;
           text-decoration: none;
-          color: #333;
-          transition: background-color 0.2s;
+          color: var(--text-primary);
+          transition: background-color var(--transition-speed), color var(--transition-speed);
 
           &:hover {
-            background-color: #f8f9fa;
+            background-color: var(--hover-bg);
           }
 
           &.logout-button {
             color: #dc3545;
-            border-top: 1px solid #eee;
+            border-top: 1px solid var(--border-color);
           }
         }
       }
@@ -187,11 +228,11 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #fff;
+    background-color: var(--bg-primary);
     padding: 2rem;
     z-index: 1001;
     transform: translateX(-100%);
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, background-color var(--transition-speed);
 
     &.is-active {
       transform: translateX(0);
@@ -201,9 +242,10 @@
       display: block;
       padding: 1rem 0;
       text-decoration: none;
-      color: #333;
+      color: var(--text-primary);
       font-size: 1.2rem;
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid var(--border-color);
+      transition: color var(--transition-speed), border-bottom-color var(--transition-speed);
     }
   }
 
