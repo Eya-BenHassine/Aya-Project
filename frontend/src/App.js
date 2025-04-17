@@ -25,27 +25,26 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path = "/features/job-offers" element = {< JobOffers/>}/>
-        <Route path = "/jobApplication" element = {< JobApplicationForm/>}/>
+        <Route path="/features/job-offers" element={<JobOffers />} />
+        <Route path="/jobApplication" element={<JobApplicationForm />} />
 
         {/* Protected Routes */}
         <Route
           path="/dashboard"
           element={<ProtectedRoute element={<Dashboard />} />}
         />
-          <Route
+        <Route
           path="/employees"
           element={<ProtectedRoute element={<Employees />} />}
         />
-          <Route
-          path="/depaartments"
+        <Route
+          path="/departments"
           element={<ProtectedRoute element={<Departments />} />}
         />
-          <Route
+        <Route
           path="/usermanager"
           element={<ProtectedRoute element={<UserManager />} />}
         />
-        
       </Routes>
     </Router>
   );

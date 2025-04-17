@@ -8,6 +8,13 @@ const JobApplicationForm = () => {
   const jobId = location.state?.jobId;
   const jobTitle = location.state?.jobTitle;
 
+  // Redirect if no job info was provided
+  if (!jobId || !jobTitle) {
+    setTimeout(() => {
+      navigate('/features/job-offers');
+    }, 100);
+  }
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -17,6 +24,8 @@ const JobApplicationForm = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,6 +33,11 @@ const JobApplicationForm = () => {
       ...prev,
       [name]: value
     }));
+    
+    // Clear error when field is updated
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: null }));
+    }
   };
 
   const handleFileChange = (e) => {
@@ -33,8 +47,16 @@ const JobApplicationForm = () => {
         ...prev,
         cv: file
       }));
+      
+      // Clear CV error
+      if (errors.cv) {
+        setErrors(prev => ({ ...prev, cv: null }));
+      }
     } else {
-      alert('Please upload a PDF file');
+      setErrors(prev => ({
+        ...prev,
+        cv: 'Please upload a PDF file'
+      }));
     }
   };
 
@@ -58,6 +80,7 @@ const JobApplicationForm = () => {
     e.preventDefault();
     
     if (validateForm()) {
+      setIsSubmitting(true);
       try {
         const formDataToSend = new FormData();
         formDataToSend.append('firstName', formData.firstName);
@@ -69,26 +92,49 @@ const JobApplicationForm = () => {
 
         const response = await fetch('http://localhost:5000/api/jobs/apply', {
           method: 'POST',
-          body: formDataToSend,
+          body: formDataToSend, // Don't set Content-Type header with FormData
         });
 
         if (response.ok) {
-          alert('Application submitted successfully!');
-          navigate('/job-offers');
+          setSubmitSuccess(true);
+          setTimeout(() => {
+            navigate('/features/job-offers');
+          }, 2000);
         } else {
-          alert('Failed to submit application. Please try again.');
+          const errorData = await response.json();
+          alert(`Failed to submit application: ${errorData.message || 'Please try again.'}`);
         }
       } catch (error) {
         console.error('Error submitting application:', error);
-        alert('An error occurred. Please try again.');
+        alert('An error occurred while submitting your application. Please try again.');
+      } finally {
+        setIsSubmitting(false);
       }
     }
   };
 
+  if (submitSuccess) {
+    return (
+      <div className="job-application-container">
+        <div className="job-application-success">
+          <h1>Application Submitted Successfully!</h1>
+          <p>Thank you for applying for {jobTitle}.</p>
+          <p>We will review your application and get back to you soon.</p>
+          <button 
+            className="return-button" 
+            onClick={() => navigate('/features/job-offers')}
+          >
+            Return to Job Listings
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="job-application-container">
       <div className="job-application-form">
-        <h1>Apply for {jobTitle}</h1>
+        <h1>Apply for {jobTitle || 'Job Position'}</h1>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="firstName">First Name</label>
@@ -156,8 +202,19 @@ const JobApplicationForm = () => {
           </div>
 
           <div className="form-actions">
-            <button type="submit" className="submit-button">Submit Application</button>
-            <button type="button" className="cancel-button" onClick={() => navigate('/job-offers')}>
+            <button 
+              type="submit" 
+              className="submit-button" 
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Submitting...' : 'Submit Application'}
+            </button>
+            <button 
+              type="button" 
+              className="cancel-button" 
+              onClick={() => navigate('/features/job-offers')}
+              disabled={isSubmitting}
+            >
               Cancel
             </button>
           </div>
